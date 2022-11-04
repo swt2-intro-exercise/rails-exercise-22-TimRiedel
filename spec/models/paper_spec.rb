@@ -16,5 +16,6 @@ describe "Paper model" do
     valid_paper = Paper.new(title: "A wonderful paper", venue: "A Venue", year: 2000)
     expect(invalid_paper).to_not be_valid
     expect(valid_paper).to be_valid
+    expect(valid_paper.year).to be_kind_of(Integer)
   end
 end
