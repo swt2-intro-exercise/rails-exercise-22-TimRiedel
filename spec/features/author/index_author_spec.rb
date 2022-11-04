@@ -13,6 +13,7 @@ describe "Author overwiev page" do
       expect(page).to have_text @alan.name
       expect(page).to have_link @alan.homepage, href: 'https://' + @alan.homepage
       expect(page).to have_link 'Show', href: author_path(@alan)
+      expect(page).to have_link 'Edit', href: edit_author_path(@alan)
     end
   end
 
