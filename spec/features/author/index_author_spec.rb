@@ -14,11 +14,24 @@ describe "Author overwiev page" do
       expect(page).to have_link @alan.homepage, href: 'https://' + @alan.homepage
       expect(page).to have_link 'Show', href: author_path(@alan)
       expect(page).to have_link 'Edit', href: edit_author_path(@alan)
+      expect(page).to have_link 'Delete', href: author_path(@alan)
     end
   end
 
   it "should have a link to create a new author" do
     visit authors_path
     expect(page).to have_link 'Add new author', href: new_author_path
+  end
+
+  it "should delete an author from the database on clicking destroy" do
+    @alan = FactoryBot.create :author
+    visit authors_path
+    
+    before_count = Author.count
+    expect(page).to have_css 'table'
+    within 'table' do
+      find(:xpath, "//a[text()='Delete']").click()
+    end
+    expect(Author.count).to eq(before_count - 1)
   end
 end
