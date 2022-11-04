@@ -10,4 +10,14 @@ describe "Paper model" do
     # expect(paper.authors).to be_kind_of(Array)
     # expect(paper.authors.length).to eq(1)
   end
+
+  it "should have a last name" do
+    paper = Paper.new(venue: "aVenue", year: 2000)
+    expect(paper).to_not be_valid
+  end
+
+  it "is not required to have a venue and year" do
+    paper = Paper.new(title: "A wonderful paper")
+    expect(paper).to be_valid
+  end
 end
