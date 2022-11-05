@@ -1,6 +1,16 @@
 <p style="color: green"><%= notice %></p>
 
 <%= render @paper %>
+<div>
+  <% if @paper.authors.any? %>
+    <p><strong>Authors:</strong></p>
+    <ul>
+      <% @paper.authors.each do |author| %>
+        <li><%= author.name %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
 
 <div>
   <%= link_to "Edit this paper", edit_paper_path(@paper) %> |
