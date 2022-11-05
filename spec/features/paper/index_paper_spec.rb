@@ -16,6 +16,21 @@ describe "Index papers page" do
     expect(page).to have_xpath("//a[@data-turbo-method='delete' and @href='/papers/1']")
     find(:xpath, "//a[@data-turbo-method='delete' and @href='/papers/1']").click()
     expect(Paper.count).to eq(before_count - 1)
+  end
 
+  it "should display only papers given by a url parameter (if present)" do
+    @paper = FactoryBot.create :paper
+
+    visit papers_path(:year => @paper.year + 100)
+    expect(page).not_to have_text(@paper.title)
+    expect(page).not_to have_text(@paper.year)
+
+    visit papers_path(:year => @paper.year)
+    expect(page).to have_text(@paper.title)
+    expect(page).to have_text(@paper.year)
+
+    visit papers_path
+    expect(page).to have_text(@paper.title)
+    expect(page).to have_text(@paper.year) 
   end
 end
